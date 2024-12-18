@@ -1,0 +1,24 @@
+p {
+  text-align: justify;
+}
+
+body {
+  align-content: center;
+  align-items: center;
+  padding-bottom: 0;
+}
+
+div#texto {
+  height: 40%;
+  width: 90%;
+  padding: 8% 8% 8% 8%;
+  margin: 5% 5% 5% 5%;
+  background-color: white;
+  text-align: left;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(#d9e2e8, #f4faf9, #485779);
+}

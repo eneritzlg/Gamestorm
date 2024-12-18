@@ -5,7 +5,7 @@ import { PaginaCondicionesComponent} from './pagina-condiciones/pagina-condicion
 import { PaginaCatalogoComponent } from './pagina-catalogo/pagina-catalogo.component';
 import { PaginaLoginComponent } from './pagina-login/pagina-login.component';
 import { PaginaRegisterComponent } from './pagina-register/pagina-register.component';
-
+import { NoticiasComponent } from './noticias/noticias.component';
 
 
 export const routes: Routes = [
@@ -15,4 +15,5 @@ export const routes: Routes = [
   {path: 'catalogo', component: PaginaCatalogoComponent},
   {path: 'registro', component: PaginaRegisterComponent},
   {path: 'login', component: PaginaLoginComponent},
+  {path: 'noticias', component: NoticiasComponent},
 ];
