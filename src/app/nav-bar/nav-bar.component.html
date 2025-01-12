@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand navbar-dark bg-dark" aria-label="Second navbar example">
   <div class="container-fluid">
-    <a href="index.html"><img class="logo" src="assets/img/logo.png"/></a>
+    <a href="index.html"><img class="logo" src="assets/img/logo.png" /></a>
 
 
     <div class="collapse navbar-collapse" id="navbarsExample02">
@@ -19,15 +19,30 @@
   </div>
   <div class="cabeza">
 
-    <a href="http://localhost:4200/carrito" class="botones-nav">
+    <a *ngIf="isLoggedIn" href="http://localhost:4200/carrito" class="botones-nav">
       <div class="cesta separacion">
         <img class="iconoCarro" src="./assets/img/carrito.svg">
       </div>
     </a>
-    <a href="http://localhost:4200/login" class="botones-nav">
+
+    <a *ngIf="!isLoggedIn" href="http://localhost:4200/login" class="botones-nav">
       <div class="login">
         <p>Login</p>
       </div>
     </a>
+
+    <div class="dropdown">
+      <a *ngIf="isLoggedIn" (click)="toggleDropdown()" class="botones-nav">
+        <div class="login">
+          <img src="assets/ui/account-user-avatar.svg" width="50%">
+        </div>
+      </a>
+      <ul class="dropdown-menu" [class.show]="isOpen">
+        <p>Bienvenido {{getUserName()}}</p>
+        <hr>
+        <li><a (click)="logout()">Logout</a></li>
+      </ul>
+    </div>
+
   </div>
 </nav>
