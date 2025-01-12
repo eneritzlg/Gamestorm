@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import {
   AbstractControl,
   Form,
@@ -32,7 +33,17 @@ export class PaginaRegisterComponent {
   }, { validators: this.passwdValidator });
   user: User = new User();
 
-  constructor(private router: Router) {};
+  paginaNombre: string = 'GameStorm';
+
+  ngOnInit() {
+    this.setTitle();
+  }
+
+  setTitle() {
+    this.titleService.setTitle(`${this.paginaNombre} - Registro`);
+  }
+
+  constructor(private router: Router, private titleService: Title) {};
 
 
   passwdValidator(): ValidatorFn {

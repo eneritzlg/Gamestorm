@@ -8,14 +8,6 @@
       <h1>{{this.product.nombreProducto}}</h1>
       <p class="h4">{{formatPrice(this.product.precioProducto)}}€</p>
 
-      <div class="mb-3">
-        <label for="consola" class="form-label">Seleccionar Plataforma:</label>
-        <select id="consola" class="form-select">
-          <option value="ps4">PlayStation 4</option>
-          <option value="ps5">PlayStation 5</option>
-        </select>
-      </div>
-
       <div class="row mt-3">
         <div class="col-12">
 
@@ -33,14 +25,40 @@
         </div>
       </div>
 
-      <button class="btn btn-primary">Añadir al carrito</button>
+      <button class="btn btn-primary" (click)="addToCart(product)">Añadir al carrito</button>
+    </div>
+  </div>
+
+  <div class="agregado-correctamente" *ngIf="addedCorrectly">
+    <div>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="24" height="24" stroke-width="2">
+        <path d="M4 19a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"></path>
+        <path d="M11.5 17h-5.5v-14h-2"></path>
+        <path d="M6 5l14 1l-1 7h-13"></path>
+        <path d="M15 19l2 2l4 -4"></path>
+      </svg>
+      <p>Producto agregado correctamente al carrito. <a href="/carrito">Ver Carrito</a></p>
     </div>
   </div>
 
   <!-- Descripción del producto -->
   <div class="row mt-3">
+    <h3 class="title-space">Descripción</h3>
     <div class="col-12">
-      <p>{{this.product.descripcionProducto}}</p>
+      <p id="desc">{{this.product.descripcionProducto}}</p>
+    </div>
+
+    <div>
+      <h2 class="title-space">Trailer de {{this.product.nombreProducto}}</h2>
+      <iframe
+        width="100%"
+        height="560px"
+        [src]="product.videoProducto | safeUrl"
+        title="Trailer de {{product.nombreProducto}}"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen>
+      </iframe>
     </div>
   </div>
 </div>

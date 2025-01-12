@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { User, UserStorage } from '../pagina-register/pagina-register.component';
 import { Router } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-pagina-login',
@@ -17,7 +18,17 @@ export class PaginaLoginComponent {
     contrasena: new FormControl("", [Validators.required, Validators.minLength(4)])
   });
 
-  constructor(private router: Router) {}
+  paginaNombre: string = 'GameStorm';
+
+  ngOnInit() {
+    this.setTitle();
+  }
+
+  setTitle() {
+    this.titleService.setTitle(`${this.paginaNombre} - Iniciar Sesión`);
+  }
+
+  constructor(private router: Router, private titleService: Title) {};
 
   onsubmit() {
     if (this.loginForm.valid) {

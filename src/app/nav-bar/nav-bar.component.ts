@@ -20,7 +20,7 @@ export class NavBarComponent {
   }
 
   getUserName() {
-    return UserStorage.getLoggedUser()?.nombre;
+    return UserStorage.getLoggedUser()?.nombre.toUpperCase();
   }
 
   constructor(private route: ActivatedRoute) {}

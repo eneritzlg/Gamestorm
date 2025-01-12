@@ -81,25 +81,11 @@
     <h2 class="lanzamiento">Nuevos lanzamientos</h2>
 
     <div class="productos">
-      <a href="#" class="link-productos">
+      <a *ngFor="let novedad of newProducts" href="/{{novedad.idProducto}}" class="link-productos">
         <div class="producto">
-          <img class="imagen-producto" alt="Imagen Producto" src="./assets/img/lethal.jpg">
-          <p class="titulo-producto">Lethal Company</p>
-          <p class="precio-producto">22,99€</p>
-        </div>
-      </a>
-      <a href="#" class="link-productos">
-        <div class="producto">
-          <img class="imagen-producto" alt="Imagen Producto" src="./assets/img/blasphemous.jpg">
-          <p class="titulo-producto">Blasphemous</p>
-          <p class="precio-producto">30€</p>
-        </div>
-      </a>
-      <a href="#" class="link-productos">
-        <div class="producto">
-          <img class="imagen-producto" alt="Imagen Producto" src="./assets/img/sf6.jpg">
-          <p class="titulo-producto">Street Fighter 6</p>
-          <p class="precio-producto">49,99€</p>
+          <img class="imagen-producto" alt="Imagen {{novedad.nombreProducto}}" src="{{novedad.fotoProducto}}">
+          <p class="titulo-producto">{{novedad.nombreProducto}}</p>
+          <p class="precio-producto">{{novedad.precioProducto}}</p>
         </div>
       </a>
     </div>

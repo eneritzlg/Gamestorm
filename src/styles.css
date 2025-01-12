@@ -20,6 +20,10 @@ body {
   background: linear-gradient(#d9e2e8, #f4faf9, #485779);
 }
 
+html, body {
+  min-height: 100%;
+}
+
 .no-style-link {
   text-decoration: none;
 }

@@ -57,7 +57,8 @@ body {
 div#produprinc {
   width: 100%;
   background-color: white;
-  margin: 5% 5% 5% 5%;
+  margin-left: auto;
+  margin-right: auto;
   padding: 5% 5% 5% 5%;
   border-radius: 2em;
 }
@@ -65,6 +66,32 @@ div#produprinc {
 div#nombreprod {
   display: block;
   margin-top: -15%;
+}
+
+.agregado-correctamente {
+  margin: auto;
+  margin-top: 2em;
+  width: fit-content;
+  height: auto;
+  color: darkolivegreen;
+  font-weight: bold;
+  text-align: center;
+  background-color: rgba(0, 190, 0, 0.3);
+  padding: 2% 2% 1% 2%;
+  border-radius: .6em;
+}
+
+.agregado-correctamente div {
+  margin: auto;
+  display: flex;
+  column-gap: .4em;
+  justify-content: center;
+}
+
+
+
+.title-space {
+  margin-bottom: .5em;
 }
 
 

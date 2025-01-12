@@ -6,6 +6,7 @@ export class Product {
   categoriaProducto: string;
   precioProducto: number;
   stockProducto: number;
+  cantidadCarrito: number;
   videoProducto: string;
   porcentajeDescuentoProducto?: number;
 
@@ -17,6 +18,7 @@ export class Product {
     this.categoriaProducto = categoriaProducto;
     this.precioProducto = precioProducto;
     this.stockProducto = stockProducto;
+    this.cantidadCarrito = 0;
     this.videoProducto = videoProducto;
     this.porcentajeDescuentoProducto = porcentajeDescuentoProducto;
   }

@@ -4,13 +4,13 @@
       <div class="col" *ngFor="let product of products">
         <a class="no-style-link" href="/{{product.idProducto}}"><div class="card shadow-sm hover-scale">
           <div *ngIf="product.porcentajeDescuentoProducto" class="porcentaje-descuento">{{product.porcentajeDescuentoProducto * 100}}% DTO.</div>
-          <img src="https://i.redd.it/wn2jticdpu4b1.png" class="card-img-top" alt="Descripción de la imagen" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title>
+          <img src="{{product.fotoProducto}}" class="card-img-top" alt="Foto de {{product.nombreProducto}}" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title>
           <div class="card-body">
             <h3>{{product.nombreProducto}}</h3>
             <p class="card-text">{{truncateText(product.descripcionProducto, 100)}}<br><a class="show-more" href="/{{product.idProducto}}/#desc">Mostrar Más</a></p>
             <div class="d-flex justify-content-between align-items-center">
               <div class="btn-group">
-                <button type="button" class="btn btn-sm btn-outline-secondary">Añadir a la cesta</button>
+                <button type="button" class="btn btn-sm btn-outline-secondary" (click)="addToCart(product)">Añadir a la cesta</button>
               </div>
               <small *ngIf="!product.porcentajeDescuentoProducto" class="text-body-secondary price">{{ formatPrice(product.precioProducto) }}€</small>
               <small *ngIf="product.porcentajeDescuentoProducto" class="text-body-secondary line-through">{{ formatPrice(product.precioProducto) }}€</small>

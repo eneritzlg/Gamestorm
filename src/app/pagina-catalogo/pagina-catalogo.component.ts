@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {NgForOf, NgIf} from "@angular/common";
 import { ProductosService } from "../productos.service";
+import { Title } from '@angular/platform-browser';
+import { Product } from '../../bd/product';
+import { CarritoService } from '../carrito.service';
 
 @Component({
   selector: 'app-pagina-catalogo',
@@ -13,13 +16,26 @@ import { ProductosService } from "../productos.service";
   styleUrls: ['./pagina-catalogo.component.css']
 })
 export class PaginaCatalogoComponent implements OnInit{
+  paginaNombre: string = 'GameStorm';
+
+  setTitle() {
+    this.titleService.setTitle(`${this.paginaNombre} - Catálogo`);
+  }
 
   products: any[] = [];
 
-  constructor(private productoService: ProductosService) {}
+  constructor(private productoService: ProductosService, private titleService: Title, private carritoService: CarritoService) {}
 
   ngOnInit(): void {
     this.products = this.productoService.products;
+    this.setTitle();
+
+  }
+
+  addToCart(product: Product) {
+    this.carritoService.addToCart(product);
+
+    alert("x1 " + product.nombreProducto + " agregado al carrito correctamente")
   }
 
   truncateText(text: string, maxLength: number): string {

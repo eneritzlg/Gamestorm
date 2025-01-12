@@ -12,9 +12,7 @@
           <a class="nav-link active" href="http://localhost:4200/catalogo">Catálogo</a>
         </li>
       </ul>
-      <form class="busqueda" role="search">
-        <input class="form-control" type="search" placeholder="Buscar" aria-label="Search">
-      </form>
+
     </div>
   </div>
   <div class="cabeza">
@@ -35,12 +33,13 @@
       <a *ngIf="isLoggedIn" (click)="toggleDropdown()" class="botones-nav">
         <div class="login">
           <img src="assets/ui/account-user-avatar.svg" width="50%">
+          <p>{{getUserName()}}</p>
         </div>
       </a>
       <ul class="dropdown-menu" [class.show]="isOpen">
         <p>Bienvenido {{getUserName()}}</p>
         <hr>
-        <li><a (click)="logout()">Logout</a></li>
+        <li><a (click)="logout()">Cerrar Sesión</a></li>
       </ul>
     </div>
 
