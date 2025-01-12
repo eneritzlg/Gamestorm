@@ -62,3 +62,64 @@ body {
   margin-top: 3%;
 
 }
+
+.porcentaje-descuento {
+  background-image: url("/assets/img/rosette.svg");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 100px;
+  color: white;
+  font-weight: bold;
+  position: absolute;
+  right: -1.7em;
+  top: -1.2em;
+  z-index: 1;
+  animation: latido 1s infinite;
+  user-select: none;
+}
+
+.show-more {
+  font-weight: 600;
+}
+
+.line-through {
+  text-decoration: line-through;
+  color: gray !important;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.card-body h3 {
+  text-align: center;
+}
+
+.price {
+  color: rgba(0, 128, 0, 0.7) !important;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+
+@keyframes latido {
+  0% {
+    transform: scale(1);
+  }
+  25% {
+    transform: scale(1.05);
+  }
+  50% {
+    transform: scale(1);
+  }
+  75% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

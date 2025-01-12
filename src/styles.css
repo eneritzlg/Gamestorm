@@ -13,8 +13,18 @@
 /*  font-family: 'textoGeneral';*/
 
 /*}*/
+
 body {
   margin: 0;
   padding: 0;
   background: linear-gradient(#d9e2e8, #f4faf9, #485779);
+}
+
+.no-style-link {
+  text-decoration: none;
+}
+
+.hover-scale:hover {
+  transform: scale(1.05);
+  transition: all .5s ease-in-out;
 }

@@ -7,6 +7,7 @@ import { PaginaLoginComponent } from './pagina-login/pagina-login.component';
 import { PaginaRegisterComponent } from './pagina-register/pagina-register.component';
 import { NoticiasComponent } from './noticias/noticias.component';
 import { CarritoComponent } from './carrito/carrito.component';
+import { ProductosComponent } from './productos/productos.component';
 
 
 export const routes: Routes = [
@@ -18,4 +19,5 @@ export const routes: Routes = [
   {path: 'login', component: PaginaLoginComponent},
   {path: 'noticias', component: NoticiasComponent},
   {path: 'carrito', component: CarritoComponent},
+  {path: ':idProducto', component:ProductosComponent},
 ];

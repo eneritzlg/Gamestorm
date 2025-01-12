@@ -1,0 +1,73 @@
+body {
+  background: linear-gradient(#d9e2e8, #f4faf9, #485779);
+}
+
+.navbar {
+  margin-bottom: 0px;
+}
+
+.botones-nav {
+  text-decoration: none;
+  color: white;
+}
+
+.botones-nav:hover {
+  transform: scale(1.05);
+}
+
+.login {
+  padding-right: 1.2em;
+  padding-left: 1.2em;
+  padding: .5em;
+  background-color: #49587a;
+  border-radius: .5em;
+  height: auto;
+}
+
+.login p {
+  line-height: .5em;
+  margin-top: .5em;
+}
+
+.separacion {
+  margin-right: 1em;
+}
+
+.cabeza {
+  border-radius: .25em;
+  margin-right: 2em;
+  width: auto;
+  display: flex;
+}
+
+.logo {
+  width: 6em;
+  height: auto;
+}
+
+.iconoCarro {
+  width: 2em;
+  height: auto;
+}
+
+.catprinc {
+  margin: 5% 0 5% 0;
+}
+
+div#produprinc {
+  width: 100%;
+  background-color: white;
+  margin: 5% 5% 5% 5%;
+  padding: 5% 5% 5% 5%;
+  border-radius: 2em;
+}
+
+div#nombreprod {
+  display: block;
+  margin-top: -15%;
+}
+
+
+.rating-color{
+  color: #ffff4b;
+}

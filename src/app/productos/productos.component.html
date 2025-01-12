@@ -1,1 +1,46 @@
-<p>productos works!</p>
+<div id="produprinc" class="container mt-5" >
+  <div class="row align-items-center">
+    <div class="col-3">
+      <img src="{{this.product.fotoProducto}}" alt="Producto" class="img-fluid" style="max-width: 100%;">
+    </div>
+
+    <div class="col-9">
+      <h1>{{this.product.nombreProducto}}</h1>
+      <p class="h4">{{formatPrice(this.product.precioProducto)}}€</p>
+
+      <div class="mb-3">
+        <label for="consola" class="form-label">Seleccionar Plataforma:</label>
+        <select id="consola" class="form-select">
+          <option value="ps4">PlayStation 4</option>
+          <option value="ps5">PlayStation 5</option>
+        </select>
+      </div>
+
+      <div class="row mt-3">
+        <div class="col-12">
+
+          <h5>Valoración:</h5>
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="ratings">
+              <i class="fa fa-star rating-color"></i>
+              <i class="fa fa-star rating-color"></i>
+              <i class="fa fa-star rating-color"></i>
+              <i class="fa fa-star rating-color"></i>
+              <i class="fa fa-star"></i>
+            </div>
+            <h5 class="review-count">{{randomNumber()}} Reviews</h5>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn btn-primary">Añadir al carrito</button>
+    </div>
+  </div>
+
+  <!-- Descripción del producto -->
+  <div class="row mt-3">
+    <div class="col-12">
+      <p>{{this.product.descripcionProducto}}</p>
+    </div>
+  </div>
+</div>
