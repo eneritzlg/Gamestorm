@@ -8,8 +8,12 @@ export class CarritoService {
 
   carrito: Product[] = [];
 
-  constructor() { }
-
+  constructor() {
+    const carritoGuardado = localStorage.getItem('carrito');
+    if (carritoGuardado) {
+      this.carrito = JSON.parse(carritoGuardado);
+    }
+  }
 
   addToCart(producto: Product) {
     const productoExistente = this.carrito.find(p => p.idProducto === producto.idProducto);
@@ -20,7 +24,22 @@ export class CarritoService {
       this.carrito.push(producto);
     }
 
-    console.log(this.carrito);
+    this.guardarCarritoEnLocalStorage();
 
+    console.log(this.carrito);
+  }
+
+
+  clearCart() {
+    this.carrito = [];
+    localStorage.removeItem('carrito');
+  }
+
+  guardarCarritoEnLocalStorage() {
+    localStorage.setItem('carrito', JSON.stringify(this.carrito));
+  }
+
+  getCart() {
+    return this.carrito;
   }
 }
