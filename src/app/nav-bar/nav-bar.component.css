@@ -16,21 +16,16 @@
 }
 
 .login{
-  padding-right: 1em;
-  padding-left: 1em;
-  padding: .5em;
+  padding: .5em 1em;
   background-color: #49587a;
   border-radius: .5em;
   height: auto;
   width: auto;
   display: flex;
   justify-content: center;
+  align-items: center;
   column-gap: .3em;
   cursor: pointer;
-}
-
-.login img {
-  width: 1.5em;
 }
 
 .login:hover {
@@ -46,7 +41,6 @@
   margin-right: 2em;
   width: auto;
   display: flex;
-  max-width: 10vw;
 }
 
 .logo {

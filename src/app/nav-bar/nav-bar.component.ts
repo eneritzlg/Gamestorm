@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { UserStorage } from '../pagina-register/pagina-register.component';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-nav-bar',
@@ -12,28 +12,24 @@ import { ActivatedRoute } from '@angular/router';
 export class NavBarComponent {
   isLoggedIn: boolean = false;
   isOpen: boolean = false;
+  user: any = null;
 
-  logout() {
-    UserStorage.logoutUser();
-    this.isLoggedIn = false;
-    this.isOpen = false;
-  }
-
-  getUserName() {
-    return UserStorage.getLoggedUser()?.nombre.toUpperCase();
-  }
-
-  constructor(private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute, public authService: AuthService) {}
 
   ngOnInit() {
-    this.route.params.subscribe(params => {
-      this.isLoggedIn = UserStorage.getLoggedUser() !== null;
+    this.authService.usuario$.subscribe(user => {
+      this.isLoggedIn = !!user;
+      this.user = user;
     });
+  }
+
+  logout() {
+    this.authService.logout();
+    this.isOpen = false;
   }
 
   toggleDropdown() {
     this.isOpen = !this.isOpen;
   }
-
 
 }

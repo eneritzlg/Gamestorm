@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand navbar-dark bg-dark" aria-label="Second navbar example">
   <div class="container-fluid">
-    <a href="index.html"><img class="logo" src="assets/img/logo.png" /></a>
+    <a href="index.html"><img class="logo" src="assets/img/logo.png"/></a>
 
 
     <div class="collapse navbar-collapse" id="navbarsExample02">
@@ -24,20 +24,23 @@
     </a>
 
     <a *ngIf="!isLoggedIn" href="http://localhost:4200/login" class="botones-nav">
-      <div class="login">
-        <p>Login</p>
-      </div>
+      <p class="login">
+        Login
+      </p>
     </a>
 
     <div class="dropdown">
       <a *ngIf="isLoggedIn" (click)="toggleDropdown()" class="botones-nav">
-        <div class="login">
-          <img src="assets/ui/account-user-avatar.svg" width="50%">
-          <p>{{getUserName()}}</p>
-        </div>
+        <p class="login">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" width="24" height="24" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" stroke="currentColor">
+            <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"></path>
+            <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"></path>
+          </svg>
+          {{ user?.displayName ? user.displayName.split(" ", 1) : user?.email }}
+        </p>
       </a>
       <ul class="dropdown-menu" [class.show]="isOpen">
-        <p>Bienvenido {{getUserName()}}</p>
+        <p>Bienvenido, {{ user?.displayName ? user.displayName.split(" ", 1) : user?.email }}</p>
         <hr>
         <li><a (click)="logout()">Cerrar Sesión</a></li>
       </ul>
