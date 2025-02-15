@@ -1,51 +1,71 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { User, UserStorage } from '../pagina-register/pagina-register.component';
 import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
+import { AuthService } from '../auth.service';
+
+
 
 @Component({
   selector: 'app-pagina-login',
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [CommonModule, FormsModule],
   standalone: true,
   templateUrl: './pagina-login.component.html',
   styleUrl: './pagina-login.component.css'
 })
 export class PaginaLoginComponent {
-  loginForm = new FormGroup({
-    nombreUsuario: new FormControl("", [Validators.required, Validators.minLength(4)]),
-    contrasena: new FormControl("", [Validators.required, Validators.minLength(4)])
-  });
+  email!: string;
+  password!: string;
+  user: any = null;
+  errorMessage: string | null = null;
+  verificationMessage: string | null = null;
+
 
   paginaNombre: string = 'GameStorm';
 
   ngOnInit() {
     this.setTitle();
+    this.authService.usuario$.subscribe(user => {
+      this.user = user;
+    });
   }
 
   setTitle() {
     this.titleService.setTitle(`${this.paginaNombre} - Iniciar Sesión`);
   }
 
-  constructor(private router: Router, private titleService: Title) {};
+  constructor(private router: Router, private titleService: Title, public authService: AuthService) {};
+  loginWithEmailAndPassword() {
+    this.errorMessage = null;
+    this.verificationMessage = null;
 
-  onsubmit() {
-    if (this.loginForm.valid) {
-      const formData = this.loginForm.value;
-
-      let nombreUsuario = formData.nombreUsuario ?? "";
-      let contrasegna = formData.contrasena ?? "";
-
-      if (UserStorage.userExists(nombreUsuario)) {
-        let user = UserStorage.getUser(nombreUsuario);
-
-        if (user?.contrasegna === contrasegna) {
-          UserStorage.loginUser(user);
-
-          this.router.navigate([""]);
+    this.authService.loginWithEmailAndPassword(this.email, this.password)
+      .then(() => {
+        console.log("Inicio de sesión exitoso.") ;
+        this.router.navigate([""]);
+      })
+      .catch(error => {
+        if (error.message.includes("verifica tu correo")) {
+          this.verificationMessage = "Por favor, revisa tu correo y verifica tu cuenta.";
+        } else {
+          this.errorMessage = "Credenciales inválidas";
         }
-      }
-    }
+      });
   }
+
+  loginWithGoogle() {
+    this.errorMessage = null;
+    this.authService.loginWithGoogle()
+      .then(() => {
+        console.log("Inicio de sesión exitoso.")
+        setTimeout(() => {
+          this.router.navigate([""]);
+        }, 500);
+      })
+      .catch(error => {
+        this.errorMessage = error.message;
+      });
+  }
+
 }
