@@ -8,36 +8,12 @@
       <!-- Registration  -->
       <form [formGroup]="registerForm" (ngSubmit)="onsubmit()">
         <div class="user-details">
-          <!-- Full Name -->
-          <div class="input-box">
-            <span class="details">Nombre Completo</span>
-            <input type="text" placeholder="Nombre" required formControlName="nombreCompleto">
-            <small *ngIf="registerForm.get('nombreCompleto')?.touched && registerForm.get('nombreCompleto')?.invalid">
-              Ingrese un nombre valido
-            </small>
-          </div>
-          <!--  Username -->
-          <div class="input-box">
-            <span class="details">Nombre de Usuario</span>
-            <input type="text" placeholder="Nombre de Usuario" required formControlName="nombreUsuario">
-            <small *ngIf="registerForm.get('nombreUsuario')?.touched && registerForm.get('nombreUsuario')?.invalid">
-              Ingrese un nombre de usuario valido
-            </small>
-          </div>
           <!--  Email -->
           <div class="input-box">
             <span class="details">Email</span>
             <input type="email" placeholder="Correo Electrónico" required formControlName="correoElectronico">
             <small *ngIf="registerForm.get('correoElectronico')?.touched && registerForm.get('correoElectronico')?.invalid">
               Ingrese un correo electronico valido
-            </small>
-          </div>
-          <!--  Phone Number -->
-          <div class="input-box">
-            <span class="details">Número de Teléfono</span>
-            <input type="text" placeholder="Número de Teléfono" required formControlName="numeroTelefono">
-            <small *ngIf="registerForm.get('numeroTelefono')?.touched && registerForm.get('numeroTelefono')?.invalid">
-              Ingrese un numero de telefono valido
             </small>
           </div>
           <!-- Password -->
@@ -55,26 +31,6 @@
             <small *ngIf="registerForm.get('confirmarContrasegna')?.touched && registerForm.hasError('contrasegnasNoCoinciden')">
               Las contraseñas no coinciden
             </small>
-          </div>
-
-
-        </div>
-        <div class="gender-details">
-          <!--  gender selection -->
-          <input type="radio" name="gender" id="dot-1" value="hombre" formControlName="gender">
-          <input type="radio" name="gender" id="dot-2" value="mujer" formControlName="gender">
-          <span class="gender-title">Género</span>
-          <div class="category">
-            <!--  Male -->
-            <label for="dot-1">
-              <span class="dot one"></span>
-              <span class="gender">Hombre</span>
-            </label>
-            <!--  Female -->
-            <label for="dot-2">
-              <span class="dot two"></span>
-              <span class="gender">Mujer</span>
-            </label>
           </div>
         </div>
         <!-- Submit button -->
