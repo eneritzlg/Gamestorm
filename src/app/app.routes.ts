@@ -8,6 +8,11 @@ import { PaginaRegisterComponent } from './pagina-register/pagina-register.compo
 import { NoticiasComponent } from './noticias/noticias.component';
 import { CarritoComponent } from './carrito/carrito.component';
 import { ProductosComponent } from './productos/productos.component';
+import { PerfilComponent } from './perfil/perfil.component';
+import { VerificarCorreoComponent } from './verificar-correo/verificar-correo.component';
+import { RestablecerContrasenaComponent } from './restablecer-contrasena/restablecer-contrasena.component';
+import { NotFoundComponent } from './not-found/not-found.component';
+import { AuthGuard } from './auth.guard';
 
 
 export const routes: Routes = [
@@ -18,6 +23,11 @@ export const routes: Routes = [
   {path: 'registro', component: PaginaRegisterComponent},
   {path: 'login', component: PaginaLoginComponent},
   {path: 'noticias', component: NoticiasComponent},
-  {path: 'carrito', component: CarritoComponent},
+  {path: 'carrito', component: CarritoComponent, canActivate: [AuthGuard]},
+  {path: 'perfil', component: PerfilComponent},
+  {path: 'verificar', component: VerificarCorreoComponent},
+  {path: 'restablecer-contrasena', component: RestablecerContrasenaComponent},
+  { path: '404', component: NotFoundComponent },
   {path: ':idProducto', component:ProductosComponent},
+  { path: '**', redirectTo: '/404' }
 ];
