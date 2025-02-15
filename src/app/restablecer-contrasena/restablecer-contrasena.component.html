@@ -1,0 +1,14 @@
+<article class="reset">
+  <header class="reset-password">
+    <h2>Restablecer Contraseña</h2>
+    <form (ngSubmit)="onSubmit()">
+      <input type="email" [(ngModel)]="email" name="email" placeholder="Correo electrónico" required>
+      <button type="submit" [disabled]="isLoading">
+        {{ isLoading ? 'Enviando...' : 'Restablecer Contraseña' }}
+      </button>
+    </form>
+    <div id="message">
+      <p class="confirm-reset">{{ confirmResetPassword }}</p>
+    </div>
+  </header>
+</article>
