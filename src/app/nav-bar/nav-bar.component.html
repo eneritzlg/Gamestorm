@@ -43,6 +43,10 @@
         <p>Bienvenido, {{ user?.displayName ? user.displayName.split(" ", 1) : user?.email }}</p>
         <hr>
         <li><a (click)="logout()">Cerrar Sesión</a></li>
+        <li>
+          <a class="nav-link active" href="http://localhost:4200/perfil">Perfil</a>
+        </li>
+
       </ul>
     </div>
 

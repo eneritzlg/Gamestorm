@@ -32,4 +32,9 @@ export class NavBarComponent {
     this.isOpen = !this.isOpen;
   }
 
+  closeDropdown() {
+    this.isOpen = false;
+  }
+
+
 }

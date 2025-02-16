@@ -27,5 +27,6 @@ export const routes: Routes = [
   {path: 'restablecer-contrasena', component: RestablecerContrasenaComponent},
   { path: '404', component: NotFoundComponent },
   {path: ':idProducto', component:ProductosComponent},
-  { path: '**', redirectTo: '/404' }
+  { path: '**', redirectTo: '/404' },
+  { path: 'perfil', component: PerfilComponent },
 ];
