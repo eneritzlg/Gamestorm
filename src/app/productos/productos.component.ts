@@ -5,6 +5,8 @@ import { ProductosService } from "../productos.service";
 import { CarritoService } from "../carrito.service";
 import { SafeUrlPipe } from "../safe-url.pipe";
 import { Product } from "../../bd/product"
+import {AuthService} from '../auth.service';
+import {User} from '@angular/fire/auth';
 
 @Component({
   selector: 'app-productos',
@@ -19,8 +21,10 @@ import { Product } from "../../bd/product"
 export class ProductosComponent implements OnInit {
   product: any;
   addedCorrectly = false;
-
-  constructor(private productoService: ProductosService, public carritoService: CarritoService, private route: ActivatedRoute) {}
+  isLoggedIn: boolean = false;
+  user: any = null;
+  addtrynotlogin: boolean = false;
+  constructor(private productoService: ProductosService, public carritoService: CarritoService, private route: ActivatedRoute, public authService: AuthService) {}
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
@@ -31,18 +35,26 @@ export class ProductosComponent implements OnInit {
         console.error('URL del producto no válida');
       }
     });
+    this.authService.usuario$.subscribe(user => {
+      this.isLoggedIn = !!user;
+      this.user = user;
+    });
 
     console.log(this.product.videoProducto)
   }
 
   addToCart(product: Product) {
-    this.carritoService.addToCart(product);
+    if (this.isLoggedIn) {
+      this.carritoService.addToCart(product);
 
-    this.addedCorrectly = true;
-    setTimeout(() => {
-      this.addedCorrectly = false;
-    }, 5000);
-  }
+
+      this.addedCorrectly = true;
+      setTimeout(() => {
+        this.addedCorrectly = false;
+      }, 5000);
+    }else{
+      this.addtrynotlogin = true;
+  }}
 
   formatPrice(price: number): string {
     return this.productoService.formatPrice(price);
