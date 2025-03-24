@@ -5,6 +5,7 @@ import { Title } from '@angular/platform-browser';
   selector: 'app-carrito',
   imports: [],
   templateUrl: './carrito.component.html',
+  standalone: true,
   styleUrl: './carrito.component.css'
 })
 export class CarritoComponent implements OnInit{

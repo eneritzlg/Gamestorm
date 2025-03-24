@@ -9,7 +9,7 @@
   justify-content: center;
   align-items: center;
   min-height: 86vh;
-  background-image: url("/assets/img/background_register.jpg");
+  background-image: url("http://localhost:3090/img/background_register.jpg");
   background-size: cover;
   background-position: center;
 

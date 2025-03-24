@@ -28,9 +28,18 @@
       <button class="btn btn-primary" (click)="addToCart(product)">Añadir al carrito</button>
     </div>
   </div>
+  <div class="agregado-correctamente" *ngIf="addtrynotlogin">
+<!--    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="24" height="24" stroke-width="2">-->
+<!--      <path d="M4 19a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"></path>-->
+<!--      <path d="M11.5 17h-5.5v-14h-2"></path>-->
+<!--      <path d="M6 5l14 1l-1 7h-13"></path>-->
+<!--      <path d="M15 19l2 2l4 -4"></path>-->
+<!--    </svg>-->
+    <p>Para agregar productos al carrito debes estar <a href="/login">registrado</a></p>
+  </div>
 
   <div class="agregado-correctamente" *ngIf="addedCorrectly">
-    <div>
+    <div *ngIf="isLoggedIn">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="24" height="24" stroke-width="2">
         <path d="M4 19a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"></path>
         <path d="M11.5 17h-5.5v-14h-2"></path>
@@ -39,6 +48,7 @@
       </svg>
       <p>Producto agregado correctamente al carrito. <a href="/carrito">Ver Carrito</a></p>
     </div>
+
   </div>
 
   <!-- Descripción del producto -->
