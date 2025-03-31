@@ -64,7 +64,7 @@ body {
 }
 
 .porcentaje-descuento {
-  background-image: url("/assets/img/rosette.svg");
+  background-image: url("http://192.168.19.158:3090/img/rosette.svg");
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
