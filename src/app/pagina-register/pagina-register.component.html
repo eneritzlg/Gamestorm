@@ -11,7 +11,7 @@
           <!--  Email -->
           <div class="input-box">
             <span class="details">Email</span>
-            <input type="email" placeholder="Correo Electrónico" required formControlName="correoElectronico">
+            <input type="email" placeholder="Correo Electrónico" required formControlName="correoElectronico" [(ngModel)]="email">
             <small *ngIf="registerForm.get('correoElectronico')?.touched && registerForm.get('correoElectronico')?.invalid">
               Ingrese un correo electronico valido
             </small>
@@ -19,7 +19,7 @@
           <!-- Password -->
           <div class="input-box">
             <span class="details">Contraseña</span>
-            <input type="password" placeholder="Contraseña" required formControlName="contrasegna">
+            <input type="password" placeholder="Contraseña" required formControlName="contrasegna" [(ngModel)]="Contrasenya">
             <small *ngIf="registerForm.get('contrasegna')?.touched && registerForm.get('contrasegna')?.invalid">
               Ingrese una contraseña valida
             </small>
@@ -27,7 +27,7 @@
           <!-- Confirm Password -->
           <div class="input-box">
             <span class="details">Confirma tu Contraseña</span>
-            <input type="password" placeholder="Confirmar Contraseña" required formControlName="confirmarContrasegna">
+            <input type="password" placeholder="Confirmar Contraseña" required formControlName="confirmarContrasegna" [(ngModel)]="ContrasenyaConfirma">
             <small *ngIf="registerForm.get('confirmarContrasegna')?.touched && registerForm.hasError('contrasegnasNoCoinciden')">
               Las contraseñas no coinciden
             </small>
