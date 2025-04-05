@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../auth.service';
+import {HttpClient} from '@angular/common/http';
 
 
 
@@ -35,15 +36,19 @@ export class PaginaLoginComponent {
     this.titleService.setTitle(`${this.paginaNombre} - Iniciar Sesión`);
   }
 
-  constructor(private router: Router, private titleService: Title, public authService: AuthService) {};
+  constructor(private router: Router, private titleService: Title, public authService: AuthService,private http: HttpClient) {};
   loginWithEmailAndPassword() {
     this.errorMessage = null;
     this.verificationMessage = null;
 
     this.authService.loginWithEmailAndPassword(this.email, this.password)
       .then(() => {
-        console.log("Inicio de sesión exitoso.") ;
+        let email = this.email
+        let password = this.password
+        this.http.post<{}>("http://192.168.19.158:3090/registreUsuariFitxer", {email, password});
+        console.log("Inicio de sesión exitoso.");
         this.router.navigate([""]);
+
       })
       .catch(error => {
         if (error.message.includes("verifica tu correo")) {
@@ -58,6 +63,7 @@ export class PaginaLoginComponent {
     this.errorMessage = null;
     this.authService.loginWithGoogle()
       .then(() => {
+
         console.log("Inicio de sesión exitoso.")
         setTimeout(() => {
           this.router.navigate([""]);

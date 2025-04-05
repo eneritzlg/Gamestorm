@@ -13,6 +13,7 @@ import {
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
+import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'app-pagina-register',
@@ -30,6 +31,9 @@ export class PaginaRegisterComponent {
   }, { validators: this.passwdValidator });
 
   paginaNombre: string = 'GameStorm';
+  email: any;
+  Contrasenya: any;
+  ContrasenyaConfirma: any;
 
   ngOnInit() {
     this.setTitle();
@@ -39,7 +43,7 @@ export class PaginaRegisterComponent {
     this.titleService.setTitle(`${this.paginaNombre} - Registro`);
   }
 
-  constructor(private router: Router, private titleService: Title, public authService: AuthService) {};
+  constructor(private router: Router, private titleService: Title, public authService: AuthService, private http: HttpClient) {};
 
 
   passwdValidator(): ValidatorFn {
@@ -54,6 +58,9 @@ export class PaginaRegisterComponent {
   onsubmit() {
     if (this.registerForm.valid) {
       const formData = this.registerForm.value;
+      let email = this.email
+      let password = this.Contrasenya
+      this.http.post<{}>("http://192.168.19.158:3090/registreUsuariFitxer", {email, password});
 
       if(formData.correoElectronico && formData.contrasegna) {
         this.authService.registerWithEmailAndPassword(formData.correoElectronico, formData.contrasegna)
