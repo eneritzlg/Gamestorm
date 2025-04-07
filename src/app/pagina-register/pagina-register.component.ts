@@ -32,9 +32,16 @@ export class PaginaRegisterComponent {
   // }, { validators: this.passwdValidator });
 
   paginaNombre: string = 'GameStorm';
-  email: any;
-  Contrasenya: any;
-  ContrasenyaConfirma: any;
+  email: string;
+  Contrasenya: string;
+  ContrasenyaConfirma: string;
+
+  constructor(private router: Router, private titleService: Title, public authService: AuthService, private http: HttpClient) {
+    this.paginaNombre = 'GameStorm';
+    this.email = '';
+    this.Contrasenya = '';
+    this.ContrasenyaConfirma = '';
+  };
 
   ngOnInit() {
     this.setTitle();
@@ -43,8 +50,6 @@ export class PaginaRegisterComponent {
   setTitle() {
     this.titleService.setTitle(`${this.paginaNombre} - Registro`);
   }
-
-  constructor(private router: Router, private titleService: Title, public authService: AuthService, private http: HttpClient) {};
 
 
   passwdValidator(){
@@ -56,7 +61,10 @@ export class PaginaRegisterComponent {
     if (this.passwdValidator()) {
       let email = this.email
       let password = this.Contrasenya
-      this.http.post<{}>("http://192.168.19.45:3090/registreUsuariFitxer", {email:email, password:password });
+      this.http.post<any>("http://192.168.19.45:3090/registreUsuariFitxer", {email:email, password:password })
+        .subscribe(data => {
+          console.log(data);
+        });
 
       if(email && password) {
         this.authService.registerWithEmailAndPassword(email, password)

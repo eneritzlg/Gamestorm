@@ -6,28 +6,24 @@
     <div class="title">Registrate</div>
     <div class="content">
       <!-- Registration  -->
-      <form (ngSubmit)="onsubmit()">
+      <form (ngSubmit)="onsubmit()" >
         <div class="user-details">
           <!--  Email -->
           <div class="input-box">
             <span class="details">Email</span>
-            <input type="email" placeholder="Correo Electrónico"  [(ngModel)]="email" required>
-            <small *ngIf="email.touched && email.invalid">
-              Ingrese un correo electronico valido
-            </small>
+            <input type="email" placeholder="Correo Electrónico" [(ngModel)]="email" name="email" required>
+
           </div>
           <!-- Password -->
           <div class="input-box">
             <span class="details">Contraseña</span>
-            <input type="password" placeholder="Contraseña" [(ngModel)]="Contrasenya" required>
-            <small *ngIf="Contrasenya.touched && Contrasenya.invalid">
-              Ingrese una contraseña valida
-            </small>
+            <input type="password" placeholder="Contraseña" [(ngModel)]="Contrasenya" name="password" required>
+
           </div>
           <!-- Confirm Password -->
           <div class="input-box">
             <span class="details">Confirma tu Contraseña</span>
-            <input type="password" placeholder="Confirmar Contraseña" required  [(ngModel)]="ContrasenyaConfirma">
+            <input type="password" placeholder="Confirmar Contraseña" required  [(ngModel)]="ContrasenyaConfirma" name="passwordConfirm">
             <small *ngIf="Contrasenya!=ContrasenyaConfirma">
               Las contraseñas no coinciden
             </small>
@@ -39,9 +35,5 @@
         </div>
       </form>
     </div>
-
-
   </div>
-
-
 </div>
