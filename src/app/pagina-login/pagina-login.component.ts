@@ -45,7 +45,7 @@ export class PaginaLoginComponent {
       .then(() => {
         let email = this.email
         let password = this.password
-        this.http.post<{}>("http://192.168.19.158:3090/registreUsuariFitxer", {email, password});
+        // this.http.post<{}>("http://192.168.19.158:3090/registreUsuariFitxer", {email, password});
         console.log("Inicio de sesión exitoso.");
         this.router.navigate([""]);
 
