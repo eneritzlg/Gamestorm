@@ -61,6 +61,23 @@ export class CarritoComponent implements OnInit{
   }
   onsubmit() {
     console.log("Compra enviada")
+    console.log(this.paymentMethod);
+    console.log(this.Name);
+    console.log(this.Surname);
+    console.log(this.email);
+    console.log(this.address);
+    console.log(this.address2);
+    console.log(this.country);
+    console.log(this.Postcode);
+    console.log(this.paymentMethod);
+    console.log(this.cc_number);
+    console.log(this.cc_expiration);
+    console.log(this.cc_Titular);
+    console.log(this.cc_cvv);
+    console.log(this.id_compra);
+    console.log(this.producto);
+    console.log(this.discount_code);
+    console.log(this.importe_total);
     this.http.post<any>("http://192.168.19.45:3090/CompraUsuariFitxer",
       { Name:this.Name,
         Surname:this.Surname,

@@ -118,17 +118,17 @@
 
       <h4 class="mb-3">Método de pago</h4>
 
-      <div class="my-3">
+      <div class="my-3" [(ngModel)]="paymentMethod" name="paymentMethod">
         <div class="form-check">
-          <input id="credit" [(ngModel)]="paymentMethod" name="paymentMethod" type="radio" class="form-check-input" checked required>
+          <input id="credit" name="paymentMethod" type="radio" class="form-check-input" checked required>
           <label class="form-check-label" for="credit">Tarjeta de crédito</label>
         </div>
         <div class="form-check">
-          <input id="debit" [(ngModel)]="paymentMethod" name="paymentMethod" type="radio" class="form-check-input" required>
+          <input id="debit" name="paymentMethod" type="radio" class="form-check-input" required>
           <label class="form-check-label" for="debit">Tarjeta de débito</label>
         </div>
         <div class="form-check">
-          <input id="paypal" [(ngModel)]="paymentMethod" name="paymentMethod" type="radio" class="form-check-input" required>
+          <input id="paypal" name="paymentMethod" type="radio" class="form-check-input" required>
           <label class="form-check-label" for="paypal">PayPal</label>
         </div>
       </div>
