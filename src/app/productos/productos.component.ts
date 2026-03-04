@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { NgIf } from "@angular/common";
 import { ProductosService } from "../productos.service";
 import { CarritoService } from "../carrito.service";
 import { SafeUrlPipe } from "../safe-url.pipe";
-import { Product } from "../../bd/product"
-import {AuthService} from '../auth.service';
-import {User} from '@angular/fire/auth';
+import { Product } from "../../bd/product";
+import { AuthService } from '../auth.service';
+import { User } from '@angular/fire/auth';
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'app-productos',
@@ -19,42 +20,57 @@ import {User} from '@angular/fire/auth';
   styleUrl: './productos.component.css'
 })
 export class ProductosComponent implements OnInit {
-  product: any;
+
+  // 1. Esborrem la variable 'product: any;' i creem aquesta per guardar la ID de la URL
+  idProductoActual: string | null = null;
+
   addedCorrectly = false;
   isLoggedIn: boolean = false;
   user: any = null;
   addtrynotlogin: boolean = false;
-  constructor(private productoService: ProductosService, public carritoService: CarritoService, private route: ActivatedRoute, public authService: AuthService) {}
+
+  ip = AppComponent.ip;
+
+  constructor(
+    private productoService: ProductosService,
+    public carritoService: CarritoService,
+    private route: ActivatedRoute,
+    public authService: AuthService
+  ) {}
 
   ngOnInit(): void {
+    // 2. Només guardem la ID, no busquem el producte encara!
     this.route.paramMap.subscribe(params => {
-      const idProducto = params.get('idProducto');
-      if (idProducto) {
-        this.product = this.productoService.obtenerProductoPorNombreUrl(idProducto);
-      } else {
-        console.error('URL del producto no válida');
-      }
+      this.idProductoActual = params.get('idProducto');
     });
+
     this.authService.usuario$.subscribe(user => {
       this.isLoggedIn = !!user;
       this.user = user;
     });
+  }
 
-    console.log(this.product.videoProducto)
+  // 3. Aquest GETTER és la clau. L'HTML el cridarà constantment.
+  // Al principi no trobarà res, però tan bon punt arribin els jocs de la BD,
+  // trobarà el teu producte i l'HTML el dibuixarà a l'instant!
+  get product() {
+    if (this.idProductoActual) {
+      return this.productoService.obtenerProductoPorNombreUrl(this.idProductoActual);
+    }
+    return null;
   }
 
   addToCart(product: Product) {
     if (this.isLoggedIn) {
       this.carritoService.addToCart(product);
-
-
       this.addedCorrectly = true;
       setTimeout(() => {
         this.addedCorrectly = false;
       }, 5000);
-    }else{
+    } else {
       this.addtrynotlogin = true;
-  }}
+    }
+  }
 
   formatPrice(price: number): string {
     return this.productoService.formatPrice(price);

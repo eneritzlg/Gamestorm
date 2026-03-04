@@ -8,10 +8,13 @@ import { Title } from '@angular/platform-browser';
   selector: 'app-root',
   imports: [RouterOutlet, NavBarComponent, FooterComponent],
   templateUrl: './app.component.html',
+  standalone: true,
   styleUrl: './app.component.css'
 })
 export class AppComponent {
   paginaNombre: string = 'GameStorm';
+
+  static ip = "192.168.1.135";
 
   constructor(private titleService: Title) {}
 

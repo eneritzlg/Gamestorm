@@ -1,16 +1,18 @@
-<div id="produprinc" class="container mt-5" >
+<div id="produprinc" class="container mt-5" *ngIf="product">
   <div class="row align-items-center">
     <div class="col-3">
-      <img src="{{this.product.fotoProducto}}" alt="Producto" class="img-fluid" style="max-width: 100%;">
+      <img class="imagen-producto img-fluid"
+           [alt]="'Imagen ' + product.nombreProducto"
+           [src]="'http://' + ip + ':3090/img/' + product.imagen"
+           style="max-width: 100%;">
     </div>
 
     <div class="col-9">
-      <h1>{{this.product.nombreProducto}}</h1>
-      <p class="h4">{{formatPrice(this.product.precioProducto)}}€</p>
+      <h1>{{product.nombreProducto}}</h1>
+      <p class="h4">{{formatPrice(product.precioProducto)}}€</p>
 
       <div class="row mt-3">
         <div class="col-12">
-
           <h5>Valoración:</h5>
           <div class="d-flex justify-content-between align-items-center">
             <div class="ratings">
@@ -28,18 +30,13 @@
       <button class="btn btn-primary" (click)="addToCart(product)">Añadir al carrito</button>
     </div>
   </div>
+
   <div class="agregado-correctamente" *ngIf="addtrynotlogin">
-<!--    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="24" height="24" stroke-width="2">-->
-<!--      <path d="M4 19a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"></path>-->
-<!--      <path d="M11.5 17h-5.5v-14h-2"></path>-->
-<!--      <path d="M6 5l14 1l-1 7h-13"></path>-->
-<!--      <path d="M15 19l2 2l4 -4"></path>-->
-<!--    </svg>-->
     <p>Para agregar productos al carrito debes estar <a href="/login">registrado</a></p>
   </div>
 
-  <div class="agregado-correctamente" *ngIf="addedCorrectly">
-    <div *ngIf="isLoggedIn">
+  <div class="agregado-correctamente" *ngIf="addedCorrectly && isLoggedIn">
+    <div>
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="24" height="24" stroke-width="2">
         <path d="M4 19a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"></path>
         <path d="M11.5 17h-5.5v-14h-2"></path>
@@ -48,27 +45,29 @@
       </svg>
       <p>Producto agregado correctamente al carrito. <a href="/carrito">Ver Carrito</a></p>
     </div>
-
   </div>
 
-  <!-- Descripción del producto -->
   <div class="row mt-3">
     <h3 class="title-space">Descripción</h3>
     <div class="col-12">
-      <p id="desc">{{this.product.descripcionProducto}}</p>
+      <p id="desc">{{product.descripcionProducto}}</p>
     </div>
 
     <div>
-      <h2 class="title-space">Trailer de {{this.product.nombreProducto}}</h2>
-      <iframe
-        width="100%"
-        height="560px"
-        [src]="product.videoProducto | safeUrl"
-        title="Trailer de {{product.nombreProducto}}"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        referrerpolicy="strict-origin-when-cross-origin"
-        allowfullscreen>
+      <h2 class="title-space">Trailer de {{product.nombreProducto}}</h2>
+      <iframe *ngIf="product.video"
+              width="100%"
+              height="560px"
+              [src]="product.video | safeUrl"
+              [title]="'Trailer de ' + product.nombreProducto"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allowfullscreen>
       </iframe>
     </div>
   </div>
+</div>
+
+<div class="container mt-5 text-center" *ngIf="!product">
+  <h2>Cargando producto...</h2>
 </div>

@@ -3,6 +3,7 @@ import { Title } from '@angular/platform-browser';
 import {FormsModule} from '@angular/forms';
 import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
+import {AppComponent} from '../app.component';
 
 @Component({
   selector: 'app-carrito',
@@ -14,6 +15,10 @@ import {HttpClient} from '@angular/common/http';
   styleUrl: './carrito.component.css'
 })
 export class CarritoComponent implements OnInit{
+
+  ip = AppComponent.ip
+
+
   paginaNombre: string = 'GameStorm';
   Name: string;
   Surname: string;
@@ -78,7 +83,7 @@ export class CarritoComponent implements OnInit{
     console.log(this.producto);
     console.log(this.discount_code);
     console.log(this.importe_total);
-    this.http.post<any>("http://192.168.19.45:3090/CompraUsuariFitxer",
+    this.http.post<any>("http://192.168.19.246:3090/CompraUsuariFitxer",
       { Name:this.Name,
         Surname:this.Surname,
         email:this.email,

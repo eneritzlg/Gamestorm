@@ -61,7 +61,7 @@ export class PaginaRegisterComponent {
     if (this.passwdValidator()) {
       let email = this.email
       let password = this.Contrasenya
-      this.http.post<any>("http://192.168.19.45:3090/registreUsuariFitxer", {email:email, password:password })
+      this.http.post<any>("http://192.168.19.246:3090/registreUsuariFitxer", {email:email, password:password })
         .subscribe(data => {
           console.log(data);
         });

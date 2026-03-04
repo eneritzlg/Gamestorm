@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
-import {NgForOf} from "@angular/common";
+import { Component, OnInit } from '@angular/core';
+import { NgForOf } from "@angular/common";
 import { ProductosService } from "../productos.service";
 import { Title } from '@angular/platform-browser';
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'app-pagina-inicio',
@@ -9,23 +10,29 @@ import { Title } from '@angular/platform-browser';
     NgForOf,
   ],
   templateUrl: './pagina-inicio.component.html',
+  standalone: true,
   styleUrl: './pagina-inicio.component.css'
 })
-export class PaginaInicioComponent {
+export class PaginaInicioComponent implements OnInit {
 
+  ip = AppComponent.ip;
   paginaNombre: string = 'GameStorm';
+
+  constructor(
+    private productoService: ProductosService,
+    private titleService: Title
+  ) {}
+
+  ngOnInit(): void {
+    this.setTitle();
+  }
 
   setTitle() {
     this.titleService.setTitle(`${this.paginaNombre} - Inicio`);
   }
 
-  newProducts: any[] = [];
-
-  constructor(private productoService: ProductosService, private titleService: Title) {}
-
-  ngOnInit(): void {
-    this.newProducts = this.productoService.newProducts;
-    this.setTitle();
+  get newProducts() {
+    return this.productoService.newProducts;
   }
 
 }

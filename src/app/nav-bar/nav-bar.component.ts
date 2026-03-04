@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../auth.service';
+import {AppComponent} from '../app.component';
 
 @Component({
   selector: 'app-nav-bar',
@@ -14,6 +15,8 @@ export class NavBarComponent {
   isLoggedIn: boolean = false;
   isOpen: boolean = false;
   user: any = null;
+
+  ip = AppComponent.ip
 
   constructor(private route: ActivatedRoute, public authService: AuthService) {}
 

@@ -16,6 +16,9 @@ import {HttpClient} from '@angular/common/http';
   styleUrl: './pagina-login.component.css'
 })
 export class PaginaLoginComponent {
+
+  ip = "192.168.19.246"
+
   email!: string;
   password!: string;
   user: any = null;
@@ -45,7 +48,7 @@ export class PaginaLoginComponent {
       .then(() => {
         let email = this.email
         let password = this.password
-        // this.http.post<{}>("http://192.168.19.158:3090/registreUsuariFitxer", {email, password});
+        this.http.post<{}>(`http://${this.ip}:3090/registreUsuariFitxer`, {email, password});
         console.log("Inicio de sesión exitoso.");
         this.router.navigate([""]);
 
