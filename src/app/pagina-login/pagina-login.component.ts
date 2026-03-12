@@ -1,12 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../auth.service';
-import {HttpClient} from '@angular/common/http';
-
-
+import { HttpClient } from '@angular/common/http';
+import {AppComponent} from '../app.component';
 
 @Component({
   selector: 'app-pagina-login',
@@ -15,9 +14,9 @@ import {HttpClient} from '@angular/common/http';
   templateUrl: './pagina-login.component.html',
   styleUrl: './pagina-login.component.css'
 })
-export class PaginaLoginComponent {
+export class PaginaLoginComponent implements OnInit {
 
-  ip = "192.168.19.246"
+  ip = AppComponent.ip;
 
   email!: string;
   password!: string;
@@ -25,8 +24,14 @@ export class PaginaLoginComponent {
   errorMessage: string | null = null;
   verificationMessage: string | null = null;
 
-
   paginaNombre: string = 'GameStorm';
+
+  constructor(
+    private router: Router,
+    private titleService: Title,
+    public authService: AuthService,
+    private http: HttpClient
+  ) {}
 
   ngOnInit() {
     this.setTitle();
@@ -39,26 +44,36 @@ export class PaginaLoginComponent {
     this.titleService.setTitle(`${this.paginaNombre} - Iniciar Sesión`);
   }
 
-  constructor(private router: Router, private titleService: Title, public authService: AuthService,private http: HttpClient) {};
   loginWithEmailAndPassword() {
     this.errorMessage = null;
     this.verificationMessage = null;
 
     this.authService.loginWithEmailAndPassword(this.email, this.password)
-      .then(() => {
-        let email = this.email
-        let password = this.password
-        this.http.post<{}>(`http://${this.ip}:3090/registreUsuariFitxer`, {email, password});
-        console.log("Inicio de sesión exitoso.");
-        this.router.navigate([""]);
+      .then((usuari: any) => {
 
+        if (usuari && usuari.emailVerified === false) {
+          // Si no està verificat, logout i mostrem l'avís
+          this.authService.logout();
+          this.verificationMessage = "Has de verificar el teu correu abans de poder iniciar sessió. Revisa la teva safata d'entrada.";
+          return;
+        }
+
+        this.http.get<any>(`http://${this.ip}:3090/usuari/${this.email}`).subscribe({
+          next: (response) => {
+            if (response.success) {
+              console.log(`Inicio de sesión exitoso. Bienvenido, ${response.dades.nombre}!`);
+              this.router.navigate([""]);
+            }
+          },
+          error: (err) => {
+            console.error("Error al Node.js:", err);
+            this.errorMessage = "L'usuari no existeix a la nostra base de dades.";
+            this.authService.logout(); // Molt bé pensat això de fer logout si no existeix a Firestore!
+          }
+        });
       })
       .catch(error => {
-        if (error.message.includes("verifica tu correo")) {
-          this.verificationMessage = "Por favor, revisa tu correo y verifica tu cuenta.";
-        } else {
-          this.errorMessage = "Credenciales inválidas";
-        }
+        this.errorMessage = "Credencials invàlides o error de connexió.";
       });
   }
 
@@ -66,8 +81,7 @@ export class PaginaLoginComponent {
     this.errorMessage = null;
     this.authService.loginWithGoogle()
       .then(() => {
-
-        console.log("Inicio de sesión exitoso.")
+        console.log("Inicio de sesión exitoso con Google.");
         setTimeout(() => {
           this.router.navigate([""]);
         }, 500);
@@ -76,5 +90,4 @@ export class PaginaLoginComponent {
         this.errorMessage = error.message;
       });
   }
-
 }

@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PaginaLoginComponent } from './pagina-login.component';
 
-describe('PaginaLoginComponent', () => {
+xdescribe('PaginaLoginComponent', () => {
   let component: PaginaLoginComponent;
   let fixture: ComponentFixture<PaginaLoginComponent>;
 

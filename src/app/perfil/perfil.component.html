@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CodingDung | Profile Template</title>
+  <title>GameStorm | Perfil</title>
   <link rel="stylesheet" href="style.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
@@ -18,7 +18,6 @@
     <div class="row no-gutters row-bordered row-border-light">
       <div class="col-md-3 pt-0">
         <div class="list-group list-group-flush account-settings-links">
-          <!-- Enlaces modificados para usar routerLink -->
           <a class="list-group-item list-group-item-action"
              [routerLink]="['/perfil']"
              [queryParams]="{section: 'general'}"
@@ -47,26 +46,60 @@
       </div>
       <div class="col-md-9">
         <div class="tab-content">
-          <!-- Secciones modificadas para usar ngIf -->
-          <!-- General -->
+
           <div *ngIf="seccionActiva === 'general'" class="tab-pane fade show active">
-            <!-- Contenido existente de General -->
+            <div class="card-body">
+              <form [formGroup]="perfilForm">
+                <div class="form-group">
+                  <label class="form-label">Nombre</label>
+                  <input type="text" class="form-control mb-1" formControlName="nombre">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Teléfono</label>
+                  <input type="text" class="form-control" formControlName="telefono" placeholder="Añade tu teléfono">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Dirección de envío</label>
+                  <input type="text" class="form-control" formControlName="direccion" placeholder="Añade tu dirección">
+                </div>
+              </form>
+
+              <div *ngIf="mensajeExito" class="alert alert-success mt-3">
+                {{ mensajeExito }}
+              </div>
+              <div *ngIf="mensajeError" class="alert alert-danger mt-3">
+                {{ mensajeError }}
+              </div>
+            </div>
           </div>
 
-          <!-- Cambiar contraseña -->
-          <div *ngIf="seccionActiva === 'password'" class="tab-pane fade">
-            <!-- Contenido existente de Cambiar contraseña -->
+          <div *ngIf="seccionActiva === 'password'" class="tab-pane fade show active">
+            <div class="card-body">
+              <h5 class="mb-4">Seguretat del compte</h5>
+              <p>Per motius de seguretat, et recomanem que canviïs la teva contrasenya regularment.</p>
+              <p>Fes clic al botó de sota i t'enviarem un enllaç segur al teu correu electrònic per restablir-la.</p>
+
+              <button class="btn btn-outline-primary mt-2" (click)="canviarContrasenya()">
+                ✉️ Enviar enllaç de recuperació
+              </button>
+
+              <div *ngIf="mensajePasswordExito" class="alert alert-success mt-4">
+                ✅ {{ mensajePasswordExito }}
+              </div>
+              <div *ngIf="mensajePasswordError" class="alert alert-danger mt-4">
+                ❌ {{ mensajePasswordError }}
+              </div>
+            </div>
           </div>
 
-          <!-- Info -->
-          <div *ngIf="seccionActiva === 'info'" class="tab-pane fade">
-            <!-- Contenido existente de Info -->
+          <div *ngIf="seccionActiva === 'info'" class="tab-pane fade show active">
+            <div class="card-body">
+              <h5 class="mb-4">Información adicional (Próximamente)</h5>
+            </div>
           </div>
 
-          <!-- Historial -->
           <div *ngIf="seccionActiva === 'historial'" class="tab-pane fade show active">
             <div class="card-body">
-              <!-- Contenido del historial existente -->
               <h5 class="mb-4">Historial de Compras</h5>
 
               <div class="alert alert-info" *ngIf="cargando">
@@ -82,7 +115,6 @@
               </button>
 
               <div *ngIf="mostrandoHistorial && !cargando">
-                <!-- Contenido del historial... -->
               </div>
             </div>
           </div>
@@ -91,16 +123,11 @@
     </div>
   </div>
 
-  <!-- Botones existentes (sin cambios) -->
-  <div class="text-right mt-3">
-    <button type="button" class="btn btn-primary">Guardar cambios</button>&nbsp;
-    <button type="button" class="btn btn-default">Cancel</button>
+  <div class="text-right mt-3 espai-botons">
+    <button type="button" class="btn btn-primary" (click)="guardarCambios()" *ngIf="seccionActiva === 'general'">Guardar cambios</button>&nbsp;
+    <button type="button" class="btn btn-default">Cancelar</button>
   </div>
 </div>
-
-<!-- Scripts modificados: eliminado el JS de Bootstrap para tabs -->
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
-<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
 
 </body>
 </html>

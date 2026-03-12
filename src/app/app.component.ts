@@ -14,7 +14,7 @@ import { Title } from '@angular/platform-browser';
 export class AppComponent {
   paginaNombre: string = 'GameStorm';
 
-  static ip = "192.168.1.135";
+  static ip = "192.168.18.84"; //constant unica de Ip
 
   constructor(private titleService: Title) {}
 

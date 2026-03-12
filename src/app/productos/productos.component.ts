@@ -6,7 +6,6 @@ import { CarritoService } from "../carrito.service";
 import { SafeUrlPipe } from "../safe-url.pipe";
 import { Product } from "../../bd/product";
 import { AuthService } from '../auth.service';
-import { User } from '@angular/fire/auth';
 import { AppComponent } from '../app.component';
 
 @Component({
@@ -50,9 +49,6 @@ export class ProductosComponent implements OnInit {
     });
   }
 
-  // 3. Aquest GETTER és la clau. L'HTML el cridarà constantment.
-  // Al principi no trobarà res, però tan bon punt arribin els jocs de la BD,
-  // trobarà el teu producte i l'HTML el dibuixarà a l'instant!
   get product() {
     if (this.idProductoActual) {
       return this.productoService.obtenerProductoPorNombreUrl(this.idProductoActual);

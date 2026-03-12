@@ -1,12 +1,12 @@
 export const environment = {
   production: false,
   firebase: {
-    apiKey: "AIzaSyDB8E2EG-lRBrAxFD8lCaXr4koqxbIbJyg",
-    authDomain: "gamestorm-database.firebaseapp.com",
-    projectId: "gamestorm-database",
-    storageBucket: "gamestorm-database.firebasestorage.app",
-    messagingSenderId: "242194852230",
-    appId: "1:242194852230:web:f9a65108ade1bde9b62407",
-    measurementId: "G-BELF33J9FR"
+    apiKey: "AIzaSyBTwuYHPRZZZEVt8wNqXk5Ju_CI6HcZuw4",
+    authDomain: "gamestorm-fa3e3.firebaseapp.com",
+    projectId: "gamestorm-fa3e3",
+    storageBucket: "gamestorm-fa3e3.firebasestorage.app",
+    messagingSenderId: "925886022324",
+    appId: "1:925886022324:web:9bae56323c713f847d8de1",
+    measurementId: "G-BELF33J9FR" //G-6M7F0M0F1Q
   }
 };

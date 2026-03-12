@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Auth, sendEmailVerification, sendPasswordResetEmail, signInWithPopup, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, GoogleAuthProvider, User, UserCredential } from '@angular/fire/auth';
+import { Auth, sendPasswordResetEmail, signInWithPopup, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, GoogleAuthProvider, User, UserCredential } from '@angular/fire/auth';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
@@ -23,41 +23,26 @@ export class AuthService {
     }
   }
 
-  async registerWithEmailAndPassword(email: string, password: string) {
-    try {
-      const credential: UserCredential = await createUserWithEmailAndPassword(this.auth, email, password);
-      await this.sendVerificationEmail(credential.user);
-      this.guardarDatosUsuario(credential.user);
-    } catch (error) {
-      console.error("Error en el registro:", error);
-      throw error;
-    }
+  async registerWithEmailAndPassword(email: string, pass: string) {
+    // Creem un nou usuari amb el correu i contrasenya
+    const userCredential = await createUserWithEmailAndPassword(this.auth, email, pass);
+
+    await signOut(this.auth);
+
+    return userCredential.user;
   }
 
   async loginWithEmailAndPassword(email: string, password: string) {
     try {
       const credential: UserCredential = await signInWithEmailAndPassword(this.auth, email, password);
-      if (!credential.user.emailVerified) {
-        throw new Error("Por favor, verifica tu correo antes de iniciar sesión.");
-      }
       this.guardarDatosUsuario(credential.user);
+      return credential.user;
     } catch (error) {
       console.error("Error en el login:", error);
       throw error;
     }
   }
 
-  async sendVerificationEmail(user: User) {
-    if (user) {
-      try {
-        await sendEmailVerification(user);
-        console.log("Correo de verificación enviado.");
-      } catch (error) {
-        console.error("Error al enviar correo de verificación:", error);
-        throw error;
-      }
-    }
-  }
 
   async resetPassword(email: string) {
     try {

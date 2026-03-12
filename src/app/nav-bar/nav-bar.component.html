@@ -12,7 +12,11 @@
           <a class="nav-link active" href="http://localhost:4200/catalogo">Catálogo</a>
         </li>
       </ul>
-
+      <div class="news-ticker-container" (click)="avancarCuriositat()" title="Clica per veure la resposta!">
+        <div class="news-ticker-static" [innerHTML]="textMostrar"
+             [class.text-resposta]="estatCuriositat === 'resposta'">
+        </div>
+      </div>
     </div>
   </div>
   <div class="cabeza">

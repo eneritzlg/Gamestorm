@@ -107,3 +107,27 @@
 .dropdown-menu li:hover {
   background-color: #f1f1f1;
 }
+
+
+.news-ticker-container {
+  background-color: #1a1a1a;
+  color: #ffc107;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 8px 20px;
+  border-radius: 8px;
+  border: 1px solid #444;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.2s ease;
+  width: fit-content;
+  margin: 0 auto;
+  max-width: 60%;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  white-space: normal;
+  line-height: 1.5;
+}

@@ -1,39 +1,52 @@
 <body>
 <div class="register">
-
   <div class="container">
-    <!-- Title-->
-    <div class="title">Registrate</div>
+    <div class="title">Regístrate</div>
     <div class="content">
-      <!-- Registration  -->
-      <form (ngSubmit)="onsubmit()" >
+
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
         <div class="user-details">
-          <!--  Email -->
-          <div class="input-box">
-            <span class="details">Email</span>
-            <input type="email" placeholder="Correo Electrónico" [(ngModel)]="email" name="email" required>
 
-          </div>
-          <!-- Password -->
           <div class="input-box">
-            <span class="details">Contraseña</span>
-            <input type="password" placeholder="Contraseña" [(ngModel)]="Contrasenya" name="password" required>
-
-          </div>
-          <!-- Confirm Password -->
-          <div class="input-box">
-            <span class="details">Confirma tu Contraseña</span>
-            <input type="password" placeholder="Confirmar Contraseña" required  [(ngModel)]="ContrasenyaConfirma" name="passwordConfirm">
-            <small *ngIf="Contrasenya!=ContrasenyaConfirma">
-              Las contraseñas no coinciden
+            <span class="details">Nombre</span>
+            <input type="text" placeholder="Tu Nombre" formControlName="nombre">
+            <small class="text-danger" *ngIf="registerForm.get('nombre')?.invalid && registerForm.get('nombre')?.touched">
+              El nombre es obligatorio
             </small>
           </div>
+
+          <div class="input-box">
+            <span class="details">Email</span>
+            <input type="email" placeholder="Correo Electrónico" formControlName="email">
+            <small class="text-danger" *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
+              Introduce un email válido
+            </small>
+          </div>
+
+          <div class="input-box">
+            <span class="details">Contraseña</span>
+            <input type="password" placeholder="Contraseña" formControlName="password">
+            <small class="text-danger" *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
+              Mínimo 6 caracteres
+            </small>
+          </div>
+
         </div>
-        <!-- Submit button -->
+
+        <div *ngIf="successMessage" style="color: green; margin-bottom: 10px; font-weight: bold; background-color: #d4edda; padding: 10px; border-radius: 5px;">
+          ✅ {{ successMessage }}
+        </div>
+
+        <div *ngIf="errorMessage" style="color: red; margin-bottom: 10px; font-weight: bold; background-color: #f8d7da; padding: 10px; border-radius: 5px;">
+          ❌ {{ errorMessage }}
+        </div>
+
         <div class="button">
-          <input type="submit" value="Registrar">
+          <input type="submit" value="Registrar" [disabled]="registerForm.invalid">
         </div>
       </form>
+
     </div>
   </div>
 </div>
+</body>
