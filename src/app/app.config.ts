@@ -7,6 +7,7 @@ import { provideAuth, getAuth } from '@angular/fire/auth';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { provideStorage, getStorage } from '@angular/fire/storage';
 import {provideHttpClient} from '@angular/common/http';
+import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
 const firebaseConfig = {
   apiKey: environment.firebase.apiKey,
   authDomain: environment.firebase.authDomain,
@@ -24,6 +25,7 @@ export const appConfig: ApplicationConfig = {
     provideAuth(() => getAuth(getApp())),
     provideFirestore(() => getFirestore(getApp())),
     provideStorage(() => getStorage(getApp())),
-    provideHttpClient()
+    provideHttpClient(),
+    provideCharts(withDefaultRegisterables())
   ]
 };

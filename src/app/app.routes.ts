@@ -14,6 +14,9 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { AuthGuard } from './auth.guard';
 
 
+import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
+import { AdminGuard } from './admin.guard';
+
 export const routes: Routes = [
   {path: '', component: PaginaInicioComponent},
   {path: 'faq', component: PaginaFAQComponent},
@@ -24,6 +27,7 @@ export const routes: Routes = [
   {path: 'noticias', component: NoticiasComponent},
   {path: 'carrito', component: CarritoComponent, canActivate: [AuthGuard]},
   {path: 'perfil', component: PerfilComponent},
+  {path: 'admin', component: AdminDashboardComponent, canActivate: [AdminGuard]},
   {path: 'restablecer-contrasena', component: RestablecerContrasenaComponent},
   { path: '404', component: NotFoundComponent },
   {path: ':idProducto', component:ProductosComponent},

@@ -1,0 +1,61 @@
+<div class="admin-container">
+  <h1>Panell d'Administració</h1>
+
+  <div *ngIf="cargando" class="loading">
+    Carregant dades del servidor...
+  </div>
+
+  <div *ngIf="!cargando" class="dashboard-content">
+
+    <section class="charts-section">
+      <div class="chart-card">
+        <h3>Vendes per Dia i Producte</h3>
+        <canvas baseChart
+                [data]="barChartData"
+                [options]="barChartOptions"
+                [type]="barChartType">
+        </canvas>
+      </div>
+
+      <div class="chart-card">
+        <h3>Vendes Oferta vs Sense Oferta</h3>
+        <canvas baseChart
+                [data]="lineChartData"
+                [options]="lineChartOptions"
+                [type]="lineChartType">
+        </canvas>
+      </div>
+    </section>
+
+    <section class="history-section">
+      <h3>Historial de Vendes (Global)</h3>
+      <div class="table-responsive">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Usuari</th>
+              <th>Producte</th>
+              <th>Quantitat</th>
+              <th>Preu Unitari</th>
+              <th>Oferta</th>
+              <th>Data</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of historial">
+              <td>{{ item.idhistorial }}</td>
+              <td>{{ item.email_usuari }}</td>
+              <td>{{ item.nombreProducto }}</td>
+              <td>{{ item.quantitat }}</td>
+              <td>{{ item.preu_unitari | currency:'EUR' }}</td>
+              <td>{{ item.en_oferta ? 'SÍ' : 'NO' }}</td>
+              <td>{{ item.data_compra | date:'short' }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </div>
+</div>

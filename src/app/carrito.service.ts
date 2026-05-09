@@ -1,14 +1,16 @@
 import { Injectable, inject } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { firstValueFrom } from 'rxjs';
 import { Product } from '../bd/product';
-import { Auth } from '@angular/fire/auth';
-import { Firestore, collection, addDoc, runTransaction, doc } from '@angular/fire/firestore';
+import { AppComponent } from './app.component';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CarritoService {
-  private firestore: Firestore = inject(Firestore);
-  private auth: Auth = inject(Auth);
+  private http = inject(HttpClient);
+  private apiUrl = `http://${AppComponent.ip}:3090`;
+
   carrito: Product[] = [];
 
   constructor() {
@@ -33,6 +35,11 @@ export class CarritoService {
     this.guardarCarritoEnLocalStorage();
   }
 
+  removeFromCart(idProducto: string) {
+    this.carrito = this.carrito.filter(p => p.idProducto !== idProducto);
+    this.guardarCarritoEnLocalStorage();
+  }
+
   clearCart() {
     this.carrito = [];
     localStorage.removeItem('carrito');
@@ -42,47 +49,65 @@ export class CarritoService {
     localStorage.setItem('carrito', JSON.stringify(this.carrito));
   }
 
-  getCart() {
+  getCart(): Product[] {
     return this.carrito;
   }
 
-  async finalizarCompra() {
-    const user = this.auth.currentUser;
-    if (!user) throw new Error('Debes iniciar sesión para completar la compra');
+  getTotalItems(): number {
+    return this.carrito.reduce((acc, p) => acc + p.cantidadCarrito, 0);
+  }
 
-    // 1. Actualizar stock con transacción
-    await runTransaction(this.firestore, async (transaction) => {
-      for (const producto of this.carrito) {
-        const productoRef = doc(this.firestore, `productos/${producto.idProducto}`);
-        const docSnap = await transaction.get(productoRef);
+  getTotalPreu(): number {
+    return this.carrito.reduce((acc, p) => {
+      const preu = p.porcentajeDescuentoProducto
+        ? p.precioProducto * (1 - p.porcentajeDescuentoProducto / 100)
+        : p.precioProducto;
+      return acc + preu * p.cantidadCarrito;
+    }, 0);
+  }
 
-        if (!docSnap.exists()) throw new Error(`Producto ${producto.nombreProducto} no encontrado`);
+  async finalizarCompra(email: string): Promise<void> {
+    if (this.carrito.length === 0) throw new Error('El carrito está vacío');
 
-        const nuevoStock = docSnap.data()['stockProducto'] - producto.cantidadCarrito;
-        if (nuevoStock < 0) throw new Error(`Stock insuficiente para ${producto.nombreProducto}`);
+    const productes = this.carrito.map(p => ({
+      idProducto: p.idProducto,
+      nombreProducto: p.nombreProducto,
+      quantitat: p.cantidadCarrito,
+      preu_unitari: p.precioProducto,
+      en_oferta: !!p.porcentajeDescuentoProducto
+    }));
 
-        transaction.update(productoRef, { stockProducto: nuevoStock });
-      }
-    });
+    await firstValueFrom(
+      this.http.post(`${this.apiUrl}/compra`, { email, productes })
+    );
 
-    // 2. Registrar compra en Firestore
-    const compraData = {
-      usuarioId: user.uid,
-      productos: this.carrito.map(p => ({
-        idProducto: p.idProducto,
-        nombre: p.nombreProducto,
-        cantidad: p.cantidadCarrito,
-        precioUnitario: p.precioProducto,
-        descuento: p.porcentajeDescuentoProducto || 0
-      })),
-      fechaCompra: new Date(), // Firestore lo convertirá a Timestamp
-      total: this.carrito.reduce((acc, p) => acc + (p.precioProducto * p.cantidadCarrito), 0)
-    };
-
-    const comprasRef = collection(this.firestore, 'compras');
-    await addDoc(comprasRef, compraData);
-
-    // 3. Vaciar carrito y limpiar localStorage
     this.clearCart();
+  }
+
+  async guardarCistella(email: string): Promise<void> {
+    try {
+      await firstValueFrom(
+        this.http.post(`${this.apiUrl}/cistella/guardar`, {
+          email,
+          productes: this.carrito
+        })
+      );
+    } catch (error) {
+      console.error('Error guardant cistella:', error);
+    }
+  }
+
+  async recuperarCistella(email: string): Promise<void> {
+    try {
+      const productes = await firstValueFrom(
+        this.http.get<Product[]>(`${this.apiUrl}/cistella/${email}`)
+      );
+      if (productes && productes.length > 0) {
+        this.carrito = productes;
+        this.guardarCarritoEnLocalStorage();
+      }
+    } catch (error) {
+      console.error('Error recuperant cistella:', error);
+    }
   }
 }

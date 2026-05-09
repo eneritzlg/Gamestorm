@@ -1,0 +1,8 @@
+<div class="ia-vigilant-container" [class.oculto]="!activo">
+  <h6>IA Vigilant</h6>
+  <div #webcamContainer class="webcam-canvas"></div>
+  <div class="stats">
+    <p>Últim gest: <strong>{{ ultimGest }}</strong> ({{ probabilitat }})</p>
+    <p>Alertes: <span [class.danger]="gestosDetectats > 0">{{ gestosDetectats }}</span> / 3</p>
+  </div>
+</div>

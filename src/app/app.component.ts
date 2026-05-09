@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import {NavBarComponent} from './nav-bar/nav-bar.component';
 import { FooterComponent} from './footer/footer.component';
+import { IaVigilantComponent } from './ia-vigilant/ia-vigilant.component';
 import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, NavBarComponent, FooterComponent],
+  imports: [RouterOutlet, NavBarComponent, FooterComponent, IaVigilantComponent],
   templateUrl: './app.component.html',
   standalone: true,
   styleUrl: './app.component.css'
@@ -14,7 +15,7 @@ import { Title } from '@angular/platform-browser';
 export class AppComponent {
   paginaNombre: string = 'GameStorm';
 
-  static ip = "192.168.18.84"; //constant unica de Ip
+  static ip = "localhost"; // Canviat de 192.168.1.138 a localhost
 
   constructor(private titleService: Title) {}
 

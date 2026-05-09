@@ -1,110 +1,93 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { Title } from '@angular/platform-browser';
-import {FormsModule} from '@angular/forms';
-import {Router} from '@angular/router';
-import {HttpClient} from '@angular/common/http';
-import {AppComponent} from '../app.component';
+import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+import { CarritoService } from '../carrito.service';
+import { AppComponent } from '../app.component';
+import { Product } from '../../bd/product';
 
 @Component({
   selector: 'app-carrito',
-  imports: [
-    FormsModule
-  ],
+  imports: [CommonModule, FormsModule],
   templateUrl: './carrito.component.html',
   standalone: true,
   styleUrl: './carrito.component.css'
 })
-export class CarritoComponent implements OnInit{
-
-  ip = AppComponent.ip
-
+export class CarritoComponent implements OnInit {
 
   paginaNombre: string = 'GameStorm';
-  Name: string;
-  Surname: string;
-  email: string;
-  address: string;
-  address2: string;
-  country: string;
-  Postcode: number;
-  paymentMethod: string;
-  cc_number: number;
-  cc_expiration: number;
-  cc_Titular: string;
-  cc_cvv: number;
-  id_compra: number;
-  producto: string;
-  discount_code:number;
-  importe_total: number;
+  ip = AppComponent.ip;
 
-  constructor(private router: Router, private titleService: Title, private http: HttpClient) {
-    this.Name = '';
-    this.Surname = '';
-    this.email = '';
-    this.address = '';
-    this.address2 = '';
-    this.country = '';
-    this.Postcode = 0;
-    this.paymentMethod = '';
-    this.cc_number = 0;
-    this.cc_expiration = 0;
-    this.cc_Titular = '';
-    this.cc_cvv = 0;
-    this.id_compra = 0;
-    this.producto = '';
-    this.discount_code = 0;
-    this.importe_total = 0;
+  Name: string = '';
+  Surname: string = '';
+  email: string = '';
+  address: string = '';
+  address2: string = '';
+  country: string = '';
+  Postcode: number = 0;
+  paymentMethod: string = '';
+  cc_number: number = 0;
+  cc_expiration: number = 0;
+  cc_Titular: string = '';
+  cc_cvv: number = 0;
 
-  }
+  errorMessage: string | null = null;
+  successMessage: string | null = null;
+  processant: boolean = false;
+
+  constructor(
+    private router: Router,
+    private titleService: Title,
+    public carritoService: CarritoService
+  ) {}
 
   ngOnInit() {
-    this.setTitle();
-  }
-
-  setTitle() {
     this.titleService.setTitle(`${this.paginaNombre} - Carrito`);
-  }
-  onsubmit() {
-    console.log("Compra enviada")
-    console.log(this.paymentMethod);
-    console.log(this.Name);
-    console.log(this.Surname);
-    console.log(this.email);
-    console.log(this.address);
-    console.log(this.address2);
-    console.log(this.country);
-    console.log(this.Postcode);
-    console.log(this.paymentMethod);
-    console.log(this.cc_number);
-    console.log(this.cc_expiration);
-    console.log(this.cc_Titular);
-    console.log(this.cc_cvv);
-    console.log(this.id_compra);
-    console.log(this.producto);
-    console.log(this.discount_code);
-    console.log(this.importe_total);
-    this.http.post<any>("http://192.168.19.246:3090/CompraUsuariFitxer",
-      { Name:this.Name,
-        Surname:this.Surname,
-        email:this.email,
-        address:this.address,
-        address2:this.address2,
-        country:this.country,
-        Postcode:this.Postcode,
-        paymentMethod:this.paymentMethod,
-        cc_number:this.cc_number,
-        cc_expiration:this.cc_expiration,
-        cc_Titular:this.cc_Titular,
-        cc_cvv:this.cc_cvv,
-        id_compra:this.id_compra,
-        producto:this.producto,
-        discount_code:this.discount_code,
-        importe_total:this.importe_total})
-      .subscribe(data => {
-        console.log(data);
-      });
-    this.router.navigate(["/catalogo"]);
 
+    const userData = sessionStorage.getItem('user');
+    if (userData) {
+      const user = JSON.parse(userData);
+      this.email = user.email || '';
+    }
   }
 
+  get productes(): Product[] {
+    return this.carritoService.getCart();
+  }
+
+  get total(): number {
+    return this.carritoService.getTotalPreu();
+  }
+
+  eliminarProducte(idProducto: string) {
+    this.carritoService.removeFromCart(idProducto);
+  }
+
+  async onsubmit() {
+    this.errorMessage = null;
+    this.successMessage = null;
+
+    if (!this.email) {
+      this.errorMessage = 'Cal iniciar sessió per completar la compra.';
+      return;
+    }
+
+    if (this.productes.length === 0) {
+      this.errorMessage = 'El carrito está vacío.';
+      return;
+    }
+
+    this.processant = true;
+    try {
+      await this.carritoService.finalizarCompra(this.email);
+      this.successMessage = 'Compra realitzada amb èxit! Gràcies per la teva compra.';
+      setTimeout(() => this.router.navigate(['/catalogo']), 2000);
+    } catch (error: any) {
+      console.error('Error finalitzant compra:', error);
+      this.errorMessage = 'Hi ha hagut un error processant la compra. Torna-ho a intentar.';
+    } finally {
+      this.processant = false;
+    }
+  }
 }

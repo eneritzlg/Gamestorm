@@ -20,7 +20,11 @@
     "@angular/platform-browser-dynamic": "^19.1.6",
     "@angular/router": "^19.1.6",
     "@fortawesome/angular-fontawesome": "^1.0.0",
+    "@teachablemachine/image": "^0.8.5",
+    "@tensorflow/tfjs": "^4.22.0",
     "animejs": "^3.2.2",
+    "chart.js": "^4.5.1",
+    "ng2-charts": "^10.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "^0.15.0"

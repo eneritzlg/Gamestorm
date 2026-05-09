@@ -1,0 +1,70 @@
+.admin-container {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 2rem;
+}
+
+.charts-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+@media (max-width: 768px) {
+  .charts-section {
+    grid-template-columns: 1fr;
+  }
+}
+
+.chart-card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.chart-card h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.table-responsive {
+  overflow-x: auto;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+th {
+  background-color: #f8f9fa;
+  font-weight: bold;
+}
+
+tr:hover {
+  background-color: #f1f1f1;
+}
+
+.loading {
+  text-align: center;
+  font-size: 1.2rem;
+  padding: 3rem;
+}
