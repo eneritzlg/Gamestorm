@@ -25,12 +25,12 @@ export class CarritoComponent implements OnInit {
   address: string = '';
   address2: string = '';
   country: string = '';
-  Postcode: number = 0;
-  paymentMethod: string = '';
-  cc_number: number = 0;
-  cc_expiration: number = 0;
+  Postcode: string = '';
+  paymentMethod: string = 'credit';
+  cc_number: string = '';
+  cc_expiration: string = '';
   cc_Titular: string = '';
-  cc_cvv: number = 0;
+  cc_cvv: string = '';
 
   errorMessage: string | null = null;
   successMessage: string | null = null;
@@ -49,6 +49,11 @@ export class CarritoComponent implements OnInit {
     if (userData) {
       const user = JSON.parse(userData);
       this.email = user.email || '';
+      if (user.displayName) {
+        const parts = user.displayName.split(' ');
+        this.Name = parts[0] || '';
+        this.Surname = parts.slice(1).join(' ') || '';
+      }
     }
   }
 
@@ -74,7 +79,14 @@ export class CarritoComponent implements OnInit {
     }
 
     if (this.productes.length === 0) {
-      this.errorMessage = 'El carrito está vacío.';
+      this.errorMessage = 'El carrito està buit.';
+      return;
+    }
+
+    // Validació de camps requerits
+    if (!this.Name || !this.Surname || !this.address || !this.country || !this.Postcode || 
+        !this.cc_number || !this.cc_expiration || !this.cc_Titular || !this.cc_cvv) {
+      this.errorMessage = 'Si us plau, emplena tots els camps obligatoris (Nom, Cognoms, Adreça, País, CP i dades de pagament).';
       return;
     }
 

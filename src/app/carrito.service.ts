@@ -33,11 +33,23 @@ export class CarritoService {
       this.carrito.push(producto);
     }
     this.guardarCarritoEnLocalStorage();
+    this.sincronizarConBackend();
   }
 
   removeFromCart(idProducto: string) {
     this.carrito = this.carrito.filter(p => p.idProducto !== idProducto);
     this.guardarCarritoEnLocalStorage();
+    this.sincronizarConBackend();
+  }
+
+  private sincronizarConBackend() {
+    const userData = sessionStorage.getItem('user');
+    if (userData) {
+      const user = JSON.parse(userData);
+      if (user.email) {
+        this.guardarCistella(user.email);
+      }
+    }
   }
 
   clearCart() {
@@ -64,6 +76,10 @@ export class CarritoService {
         : p.precioProducto;
       return acc + preu * p.cantidadCarrito;
     }, 0);
+  }
+
+  formatPrice(price: number): string {
+    return price.toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   }
 
   async finalizarCompra(email: string): Promise<void> {

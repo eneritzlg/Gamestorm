@@ -15,13 +15,13 @@ export class IaVigilantComponent implements OnInit, OnDestroy {
 
   // URL del model (l'usuari haurà d'entrenar-lo i posar la seva URL aquí)
   // Per ara posem una de mostra o buida
-  private modelURL = 'https://teachablemachine.withgoogle.com/models/v_Y7fE_A5/'; // EXEMPLE: Necessita ser una real
-  
+  private modelURL = 'https://teachablemachine.withgoogle.com/models/b6NEEQ0y1/';
+
   private model: any;
   private webcam: any;
   private labelContainer: any;
   private maxPredictions: number = 0;
-  
+
   gestosDetectats: number = 0;
   ultimGest: string = 'Cap';
   probabilitat: string = '0%';
@@ -51,12 +51,12 @@ export class IaVigilantComponent implements OnInit, OnDestroy {
       this.model = await tmImage.load(checkpointURL, metadataURL);
       this.maxPredictions = this.model.getTotalClasses();
 
-      const flip = true; 
-      this.webcam = new tmImage.Webcam(200, 200, flip); 
-      await this.webcam.setup(); 
+      const flip = true;
+      this.webcam = new tmImage.Webcam(200, 200, flip);
+      await this.webcam.setup();
       await this.webcam.play();
       this.activo = true;
-      
+
       window.requestAnimationFrame(() => this.loop());
 
       if (this.webcamContainer) {
@@ -77,18 +77,17 @@ export class IaVigilantComponent implements OnInit, OnDestroy {
 
   async predict() {
     const prediction = await this.model.predict(this.webcam.canvas);
-    
+
     // Busquem si algun gest "dolent" té alta probabilitat
-    // Suposem que el model té classes com "Amigable" i "Ofensiu"
     for (let i = 0; i < this.maxPredictions; i++) {
       const classPrediction = prediction[i].className;
       const probability = prediction[i].probability;
 
-      if (classPrediction === 'Ofensiu' && probability > 0.9) {
+      if (classPrediction === 'Class 2' && probability > 0.9) {
         this.gestosDetectats++;
-        this.ultimGest = 'Ofensiu';
+        this.ultimGest = 'Class 2';
         this.probabilitat = (probability * 100).toFixed(0) + '%';
-        
+
         console.warn("Gest ofensiu detectat! Comptador:", this.gestosDetectats);
 
         if (this.gestosDetectats >= 3) {

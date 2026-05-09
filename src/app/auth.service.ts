@@ -40,6 +40,9 @@ export class AuthService {
     try {
       const credential: UserCredential = await signInWithEmailAndPassword(this.auth, email, password);
       this.guardarDatosUsuario(credential.user);
+      if (credential.user.email) {
+        await this.carritoService.recuperarCistella(credential.user.email);
+      }
       return credential.user;
     } catch (error) {
       console.error('Error en el login:', error);

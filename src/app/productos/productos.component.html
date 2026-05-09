@@ -9,7 +9,13 @@
 
     <div class="col-9">
       <h1>{{product.nombreProducto}}</h1>
-      <p class="h4">{{formatPrice(product.precioProducto)}}€</p>
+      <p class="h4" *ngIf="!product.porcentajeDescuentoProducto">{{formatPrice(product.precioProducto)}}€</p>
+      <div *ngIf="product.porcentajeDescuentoProducto">
+        <p class="h4 text-danger">{{formatPrice(product.precioProducto * (1 - (product.porcentajeDescuentoProducto / 100)))}}€ 
+          <span class="badge bg-danger ms-2">{{product.porcentajeDescuentoProducto}}% DTO.</span>
+        </p>
+        <p class="text-body-secondary text-decoration-line-through small">{{formatPrice(product.precioProducto)}}€</p>
+      </div>
 
       <div class="row mt-3">
         <div class="col-12">

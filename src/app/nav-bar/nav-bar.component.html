@@ -1,15 +1,15 @@
 <nav class="navbar navbar-expand navbar-dark bg-dark" aria-label="Second navbar example">
   <div class="container-fluid">
-    <a href="index.html"><img class="logo" src="http://{{ip}}:3090/img/logo.png"/></a>
+    <a href="/"><img class="logo" src="http://{{ip}}:3090/img/logo.png"/></a>
 
 
     <div class="collapse navbar-collapse" id="navbarsExample02">
       <ul class="navbar-nav me-auto">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="index.html">Inicio</a>
+          <a class="nav-link active" aria-current="page" href="/">Inicio</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" href="http://localhost:4200/catalogo">Catálogo</a>
+          <a class="nav-link active" href="/catalogo">Catálogo</a>
         </li>
       </ul>
       <div class="news-ticker-container" (click)="avancarCuriositat()" title="Clica per veure la resposta!">
@@ -21,13 +21,16 @@
   </div>
   <div class="cabeza">
 
-    <a *ngIf="isLoggedIn" href="http://localhost:4200/carrito" class="botones-nav">
-      <div class="cesta separacion">
+    <a *ngIf="isLoggedIn" href="/carrito" class="botones-nav">
+      <div class="cesta separacion position-relative">
         <img class="iconoCarro" src="http://{{ip}}:3090/img/carrito.svg">
+        <span *ngIf="carritoService.getTotalItems() > 0" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+          {{ carritoService.getTotalItems() }}
+        </span>
       </div>
     </a>
 
-    <a *ngIf="!isLoggedIn" href="http://localhost:4200/login" class="botones-nav">
+    <a *ngIf="!isLoggedIn" href="/login" class="botones-nav">
       <p class="login">
         Login
       </p>
@@ -47,8 +50,13 @@
         <p>Bienvenido, {{ user?.displayName ? user.displayName.split(" ", 1) : user?.email }}</p>
         <hr>
         <li><a (click)="logout()">Cerrar Sesión</a></li>
+
         <li>
-          <a class="nav-link active" href="http://localhost:4200/perfil">Perfil</a>
+          <a class="nav-link active" href="/perfil">Perfil</a>
+        </li>
+
+        <li *ngIf="userDB?.rol === 'admin'">
+          <a class="nav-link active" href="/admin">Panell Admin</a>
         </li>
 
       </ul>
