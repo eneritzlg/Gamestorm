@@ -180,12 +180,24 @@
     </div>
   </div>
   <div class="contact-form-container">
-    <form class="contact-form">
+    <form class="contact-form" (ngSubmit)="enviarConsulta()">
+      <label class="labels">Nombre:</label>
+      <input name="nom" type="text" class="email-input" placeholder="Nombre" [(ngModel)]="contacte.nom" required/>
+
       <label class="labels">Correo Electrónico:</label>
-      <input name="email" type="email" class="email-input" placeholder="Correo Electrónico"/>
+      <input name="email" type="email" class="email-input" placeholder="Correo Electrónico" [(ngModel)]="contacte.email" required/>
+
       <label class="labels">Mensaje:</label>
-      <textarea name="feedback" class="message" placeholder="Mensaje"></textarea>
+      <textarea name="feedback" class="message" placeholder="Mensaje" [(ngModel)]="contacte.consulta" required></textarea>
+
+      <!-- Widget reCAPTCHA -->
+      <div id="recaptcha-container" class="my-3"></div>
+
       <button class="submit" type="submit">Enviar</button>
+
+      <p *ngIf="missatgeStatus" [ngClass]="{'text-success': success, 'text-danger': !success}" class="mt-2">
+        {{ missatgeStatus }}
+      </p>
     </form>
   </div>
 </div>

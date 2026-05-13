@@ -3,11 +3,12 @@ import { RouterOutlet } from '@angular/router';
 import {NavBarComponent} from './nav-bar/nav-bar.component';
 import { FooterComponent} from './footer/footer.component';
 import { IaVigilantComponent } from './ia-vigilant/ia-vigilant.component';
+import { IaBotComponent } from './ia-bot/ia-bot.component';
 import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, NavBarComponent, FooterComponent, IaVigilantComponent],
+  imports: [RouterOutlet, NavBarComponent, FooterComponent, IaVigilantComponent, IaBotComponent],
   templateUrl: './app.component.html',
   standalone: true,
   styleUrl: './app.component.css'
